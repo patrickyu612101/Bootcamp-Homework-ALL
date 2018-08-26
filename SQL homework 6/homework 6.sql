@@ -111,12 +111,39 @@ select category_id from category where name="Family")
 	#7.e
 select film.title, count(film.title) as "rent rate" from film join inventory on film.film_id=inventory.film_id
 join rental on inventory.inventory_id=rental.inventory_id group by title order by count(*) desc;
+	
+    #7.f
+select s.store_id, count(p.amount) as "total amount" from store s 
+join customer c on s.store_id=c.store_id
+join payment p on p.customer_id=c.customer_id group by s.store_id;
 
-select * from film limit 10;
-select * from inventory limit 10;
-select * from rental limit 10;
-select * from customer limit 10;
-select * from country;
+	#7.g
+select s.store_id,c.city, cy.country from store s 
+join address a on s.address_id=a.address_id 
+join city c on a.city_id=c.city_id
+join country cy on c.country_id=cy.country_id;
+
+	#7.h
+select c.category_id,c.name,count(p.amount) as "Gorss revenue" from category c
+join film_category fc on c.category_id=fc.category_id
+join inventory i on fc.film_id=i.film_id
+join rental r on r.inventory_id=i.inventory_id
+join payment p on p.customer_id=r.customer_id group by category_id order by count(*) desc; 
+
+	#8.a
+create view top_five as
+select c.category_id,c.name,count(p.amount) as "Gorss revenue" from category c
+join film_category fc on c.category_id=fc.category_id
+join inventory i on fc.film_id=i.film_id
+join rental r on r.inventory_id=i.inventory_id
+join payment p on p.customer_id=r.customer_id group by category_id order by count(*) asc; 
+
+	#8.b
+select * from top_five;
+	# 8.c
+drop view top_five;
+
+
 
 
 
