@@ -1,0 +1,3 @@
+
+def nasa_scr():
+	browser.visit
