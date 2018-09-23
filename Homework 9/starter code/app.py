@@ -10,7 +10,8 @@ print(app)
 
 @app.route("/")
 def index():
-   pass
+    
+   return render_template("index.html", news_title=news_title, news_paragraph=news_paragraph)
 
 
 @app.route("/scrape")
