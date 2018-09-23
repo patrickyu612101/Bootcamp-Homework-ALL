@@ -31,7 +31,7 @@
             <h3>Current weather on Mars</h3>
             <p>{{alldata.weather}}<p>
           </div>
-          <div class="col-md-6" >{{alldata.fact}}</div>
+          <div class="col-md-6" >{{alldata.fact | safe}}</div>
         </div>
 
         <h1 style="text-align: center">Mars Hemispheres</h1>
@@ -42,9 +42,25 @@
             <img src="{{alldata.hemispheresInfo[1].imgurl}}" float="left"style="width:50%;height: 50%">
           </div>
           <div class="row">
+            <div class="col-md-6" >
+              <h3>{{alldata.hemispheresInfo[0].title}}</h3>
+            </div>
+            <div class="col-md-6" >
+                <h3>{{alldata.hemispheresInfo[1].title}}</h3>
+            </div>
+          </div>
+          <div class="row">
               <img src="{{alldata.hemispheresInfo[2].imgurl}}" float="left"style="width:50%;height: 50%">
               <img src="{{alldata.hemispheresInfo[3].imgurl}}" float="left"style="width:50%;height: 50%">
             </div>
+            <div class="row">
+              <div class="col-md-6" >
+                <h3>{{alldata.hemispheresInfo[2].title}}</h3>
+              </div>
+                <div class="col-md-6" >
+                  <h3>{{alldata.hemispheresInfo[3].title}}</h3>
+            </div>
+              </div>
         </div>
 
     </div>
