@@ -1,7 +1,8 @@
+
 // from data.js
+var tableData = data;
 var tbody = d3.select("tbody");
 
-var tableData = data;
 data.forEach((tableData) => {
     var row = tbody.append("tr");
     
@@ -12,16 +13,22 @@ data.forEach((tableData) => {
   });
 
 // YOUR CODE HERE!
-var submit = d3.select("#submit");
+var submit = d3.select("#filter-btn");
 
 submit.on("click", function() {
 d3.event.preventDefault();
 
-var inputElement = d3.select("#patient-form-input");
+var inputElement = d3.select("#datetime");
 
 var inputValue = inputElement.property("value");
 
-var filteredData = tableData.filter(tdate => tableData.datetime === inputValue);
+var filteredData = tableData.filter(tdate => tdate.datetime === inputValue);
+
+console.log(filteredData);
+// console.log(tableData);
+
+// var userdate= filteredData.map(time=>time.datetime);
+// console.log(userdate);
 
 
 });
