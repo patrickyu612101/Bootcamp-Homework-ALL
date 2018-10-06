@@ -4,6 +4,14 @@ function buildMetadata(sample) {
 
   // Use `d3.json` to fetch the metadata for a sample
     // Use d3 to select the panel with id of `#sample-metadata`
+var md=d3.select("#sample-metadata");
+    d3.json(`/metadata/${sample}`).then((mdata)=>{
+    // console.log(datad);
+    mdata.map((datam)=>{
+      return console.log(mdata);
+    });
+    // md.append("text").text("AGE:"+datad["AGE"]+" ");
+    // md.append("text").text("")
 
     // Use `.html("") to clear any existing metadata
 
@@ -14,6 +22,7 @@ function buildMetadata(sample) {
     // BONUS: Build the Gauge Chart
     // buildGauge(data.WFREQ);
     // console.log(JSON.stringify(sample));
+  })
 }
 
 function buildCharts(sample) {
@@ -25,11 +34,11 @@ function buildCharts(sample) {
     var ids=datad["otu_ids"].slice(0,10);
     var lb=datad["otu_labels"].slice(0,10);
     var sv=datad["sample_values"].slice(0,10);
-    console.log(sample)
-    console.log(datad);
-    console.log(ids);
-    console.log(lb);
-    console.log(sv);
+    // console.log(sample)
+    // console.log(datad);
+    // console.log(ids);
+    // console.log(lb);
+    // console.log(sv);
     var trace1 = {
     labels: ids,
     values: sv,
