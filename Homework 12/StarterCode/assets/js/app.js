@@ -4,6 +4,7 @@
 // set up the defalut views for x and y on page load
 var xView = "poverty";
 var yView = "healthcare";
+var places="abbr"
 
 d3.csv(".\\assets\\data\\data.csv").then(function(dataset){
         
@@ -39,8 +40,8 @@ var height = svgHeight - margin.top - margin.bottom;
 // Append svg to the index.html 
 var svg = d3.select("#scatter")
           .append("svg")
-          .attr("width", width)
-          .attr("height", height) 
+          .attr("width", width+15)
+          .attr("height", height+18) 
           .attr("class", "scatter")
           .append("g")
           .attr("tranform", `translate( ${margin.left}, ${margin.top})`);
@@ -66,7 +67,7 @@ var yValues  = data.map(d => parseFloat(d[yView]));
 // use extent to grab the min and max of the selected Scale and Axis
 var xScale = d3.scaleLinear()
             .domain(d3.extent(xValues))
-            .range([margin.right+18, width+margin.right]);
+            .range([margin.right+50, width+margin.right]);
 
 var yScale = d3.scaleLinear()
             .domain(d3.extent(yValues))
@@ -82,15 +83,33 @@ var yAxis = d3.axisLeft(yScale);
 svg.append("g")
         .attr("class", "xAxis")
         .attr("transform", `translate(${padding.top},  ${height - margin.bottom})`)
-        .call(xAxis);
+        .call(xAxis)
+        // .enter()
+        // .append("text")
+        ;
+
+svg.append("text")             
+    .attr("transform","translate(" + (margin.left*8) + " ," + ( height+13) + ")")
+    .style("text-anchor", "middle")
+    .text("Poverty (%)"); 
+// 100 400
 
 svg.append("g")
         .attr("class", "yAxis")
-        .attr("transform", `translate(${padding.right}, ${padding.right})`)
+        .attr("transform", `translate(${padding.right+50}, ${padding.right})`)
         .call(yAxis);
 
-// Create the <circle></circle> element 
+svg.append("text")             
+    // .attr("transform", "rotate(-90)")
+    // .attr("y", 0 - margin.left+40)
+    // .attr("x",0 - (margin.right-10))
+    .attr("transform","translate(" + (margin.right-20) + " ," + ( margin.right+200) + "),rotate(90)")
+    .style("text-anchor", "middle")
+    .text("Health Care"); 
 
+// Create the <circle></circle> element 
+// var places =data.map(d=>parseFloat(d[xView]));
+// console.log(places);
 
 var scatter = svg.selectAll("circles")
             .data(data)
@@ -105,26 +124,15 @@ var scatter = svg.selectAll("circles")
             .data(data)
             .enter()
             .append("text")
-            .attr("dx",  d => xScale( d[xView] )-6)
+            .attr("dx",  d => xScale( d[xView] )-7)
             .attr("dy", d => yScale( d[yView] )+5)
-            .text(".");
-            // .append("text")
-            // .attr("dx", "-20" )
-	        // .text("hi")
+            .attr("font-size","10px")
+            .attr("font-weight","bold")
+            .style("fill", "black")
+            .text(d=>d[places]);
+
             ;
-            // svg.selectAll("circle")
-            // .append("text")
-            // .attr("dx",  "-20")
-            // .text("hi" );
-
-
-            // svg.select("scatter")
-            // .data(data)
-            // .enter()
-            // .append("text")
-            // .attr("dx",  d => xScale( d[xView] ))
-            // .attr("dy", d => yScale( d[yView] ))
-            // .text("hi");
+     
         
 /* data[xView] is the scale that will be 
     updated on click. You will need to update the bubbles with:
