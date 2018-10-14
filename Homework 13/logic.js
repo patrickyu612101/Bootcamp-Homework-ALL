@@ -57,6 +57,41 @@ for (var i = 0; i < earthquakedata.length; i++) {
     // Adjust radius
     radius: earthquakedata[i].properties["mag"] * 15000
   }).bindPopup("<h1>Title: " + earthquakedata[i].properties["title"] + "</h1> <hr> <h3>Magnitude: " + earthquakedata[i].properties["mag"] + "</h3>").addTo(myMap);
+};
+
+
+// var overlayMaps = {
+//   Cities: cityLayer
+// };
+// L.control.layers(overlayMaps).addTo(myMap);
+function getColor(d) {
+  return d <=1 ? '#C2E9A0' :
+         d <=2  ? '#97D85E' :
+         d <= 3 ? 'yellow' :
+         d <= 4 ? 'orange' :
+         d <= 5  ? 'darkorange' :
+                    '#darkorange';
 }
+
+
+var legend = L.control({position: 'bottomright'});
+legend.onAdd = function (myMap) {
+
+  var div = L.DomUtil.create('div', 'legend'),
+      grades = [0, 1, 2, 3, 4, 5],
+      labels = [];
+
+  // loop through our density intervals and generate a label with a colored square for each interval
+  for (var i = 0; i < grades.length; i++) {
+      div.innerHTML +=
+          '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+          grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+  }
+
+  return div;
+};
+
+legend.addTo(myMap);
+
 
 };
